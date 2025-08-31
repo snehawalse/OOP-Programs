@@ -1,0 +1,85 @@
+package practical;
+import java.util.Scanner; 
+ 
+public class Hotel { 
+ 
+    static int FLOORS = 3; 
+    static int ROOMS = 5; 
+    static int[][] hotel = new int[FLOORS][ROOMS]; 
+ 
+    public static void initialize() { 
+        for (int i = 0; i < FLOORS; i++) { 
+            for (int j = 0; j < ROOMS; j++) { 
+                hotel[i][j] = 0; 
+            } 
+        } 
+    } 
+  
+    public static void viewRooms() { 
+        System.out.println("\nHotel Room Status:"); 
+        for (int i = 0; i < FLOORS; i++) { 
+            System.out.print("Floor " + (i + 1) + ": "); 
+            for (int j = 0; j < ROOMS; j++) { 
+                if (hotel[i][j] == 0) 
+                    System.out.print("[Empty] "); 
+                else 
+                    System.out.print("[Booked] "); 
+            } 
+            System.out.println(); 
+        } 
+        System.out.println(); 
+    } 
+  
+    public static void bookRooms(Scanner sc) { 
+        System.out.print("Enter Floor (1-" + FLOORS + "): "); 
+        int f = sc.nextInt(); 
+        System.out.print("Enter Room (1-" + ROOMS + "): "); 
+        int r = sc.nextInt(); 
+ 
+        if (f < 1 || f > FLOORS || r < 1 || r > ROOMS) { 
+            System.out.println("Invalid Floor/Room.\n"); 
+            return; 
+        } 
+ 
+        if (hotel[f - 1][r - 1] == 1) { 
+            System.out.println("Room is Already Booked.\n"); 
+        } else { 
+            hotel[f - 1][r - 1] = 1; 
+            System.out.println("Room Booked Successfully!\n"); 
+        } 
+    } 
+  
+    public static void menu() { 
+        Scanner sc = new Scanner(System.in); 
+        while (true) { 
+            System.out.println("===== HOTEL BOOKING SYSTEM ====="); 
+            System.out.println("1. View Rooms"); 
+            System.out.println("2. Book Rooms"); 
+            System.out.println("3. Exit"); 
+            System.out.print("Enter your choice: "); 
+            int choice = sc.nextInt(); 
+ 
+            switch (choice) { 
+                case 1: 
+                    viewRooms(); 
+                    break; 
+                case 2: 
+                    bookRooms(sc); 
+                    break; 
+                case 3: 
+                    System.out.println("THANK YOU!"); 
+                    return; 
+                default: 
+                    System.out.println("Invalid Choice.\n"); 
+                    break; 
+            } 
+        } 
+    } 
+ 
+    public static void main(String[] args) { 
+        initialize(); 
+        menu(); 
+    } 
+} 
+ 
+
